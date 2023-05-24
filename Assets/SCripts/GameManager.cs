@@ -19,5 +19,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         playerLivesDisplay.text = "Lives: " + playerLives;
+        playerScoreDisplay.text = "Score: " + playerScore;
     }
 }

@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float horizontalInput;
     public float verticalInput;
     public GameManager gm;
     public Sprite deadSprite; // The new sprite to assign
-    private Collider2D playerCollider;
+    public Collider2D playerCollider;
     public Sprite aliveSprite;
+    public bool isPowered = false;
+    public Sprite madSprite;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,13 +33,17 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && isPowered == false)
         {
             speed = 0;
             ChangeSprite();
             gm.playerLives--;
             playerCollider.enabled = false;
             StartCoroutine(Respawn());
+        }
+        if (collision.gameObject.CompareTag("Enemy") && isPowered == true)
+        {
+            Destroy(collision.gameObject);
         }
     }
     private void ChangeSprite()

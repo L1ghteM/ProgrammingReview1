@@ -5,7 +5,14 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Transform target;  // The object to follow
-    public float speed = 5f;  // The speed of movement
+    public float speed = 3f;  // The speed of movement
+    public GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+        target = player.transform;
+    }
 
     private void Update()
     {
